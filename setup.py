@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='OpenVulnQuery',
-      version='1.30',
+      version='1.31',
       description='A python-based module(s) to query the Cisco PSIRT openVuln API.',
       long_description=long_description,
       long_description_content_type="text/markdown",
