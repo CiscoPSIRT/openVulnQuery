@@ -18,7 +18,7 @@ Depending on your environment, you may need to specify the latest version (1.29)
 python3 -m pip install openVulnQuery==1.31
 ```
 
-If you are experiencing any difficulty installing openVulnQuery. Here is the link to [common installation issues solutions] (<https://github.com/iamparas/openVulnAPI/blob/master/openVulnQuery/InstallationIssueSolutions.md>).
+If you are experiencing any difficulty installing openVulnQuery. Here is the link to [common installation issues solutions](<https://github.com/iamparas/openVulnAPI/blob/master/openVulnQuery/InstallationIssueSolutions.md>).
 
 Requirements
 
@@ -54,19 +54,19 @@ Obtain client ID and Secret:
 
   - Either export two matching environment variables (below the syntax for bash and assuming the values are as in steps 6\. and 7.):
 
-    ```
-       >> export CLIENT_ID="abc12abcd13abcdefabcde1a"
-       >> export CLIENT_SECRET="1a2abcDEfaBcDefAbcDeFA3b"
-    ```
+```
+>> export CLIENT_ID="abc12abcd13abcdefabcde1a"
+>> export CLIENT_SECRET="1a2abcDEfaBcDefAbcDeFA3b"
+```
 
   - Or create a valid JSON file (e.g. `credentials.json`) with these personal credentials similar to the below given (assuming the values are as in steps 6\. and 7.):
 
-    ```
-       {
-           "CLIENT_ID": "abc12abcd13abcdefabcde1a",
-           "CLIENT_SECRET": "1a2abcDEfaBcDefAbcDeFA3b"
-       }
-    ```
+```
+{
+    "CLIENT_ID": "abc12abcd13abcdefabcde1a",
+    "CLIENT_SECRET": "1a2abcDEfaBcDefAbcDeFA3b"
+}
+```
 
 9. Do not distribute the credentials file resulting from previous step
 
@@ -78,15 +78,15 @@ Obtain client ID and Secret:
 
 - If installed with pip run the program by typing
 
-  ```
-  >>openVulnQuery --config PathToCredentialsFile --Advisory Type --API Filters --Parsing Fields --Output Format -Count
-  ```
+```
+>> openVulnQuery --config PathToCredentialsFile --Advisory Type --API Filters --Parsing Fields --Output Format -Count
+```
 
 - Or cd into the directory with the main.py file and run using
 
-  ```
-  >>python main.py --config PathToCredentialsFile --Advisory Type --API Filters --Parsing Fields --Output Format -Count
-  ```
+```
+>> python main.py --config PathToCredentialsFile --Advisory Type --API Filters --Parsing Fields --Output Format -Count
+```
 
   Notes:
 
@@ -292,8 +292,8 @@ Filtering with Grep:
 
 ```
 Finding the Number of CVRF Advisories with a "Critical" sir in 2013
-        >> openVulnQuery --config PathToCredentialsFile  --year 2013 -f sir | grep -c "Critical"
-        >> openVulnQuery --config PathToCredentialsFile  --severity critical -f first_published | grep -c "2013"
+>> openVulnQuery --config PathToCredentialsFile  --year 2013 -f sir | grep -c "Critical"
+>> openVulnQuery --config PathToCredentialsFile  --severity critical -f first_published | grep -c "2013"
 ```
 
 If more than one API filter is entered, the last filter will be used for the API call.
