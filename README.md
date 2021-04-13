@@ -9,10 +9,10 @@ The Cisco Product Security Incident Response Team (PSIRT) openVuln API is a REST
 You can easily do:
 
 ```
-pip install openVulnQuery
+pip3 install openVulnQuery
 ```
 
-Depending on your environment, you may need to specify the latest version (1.29), as demonstrated below:
+Alternatively, depending on your environment, you may need to specify the latest version (1.31), as demonstrated below:
 
 ```
 python3 -m pip install openVulnQuery==1.31
@@ -22,7 +22,7 @@ If you are experiencing any difficulty installing openVulnQuery. Here is the lin
 
 Requirements
 
-- Tested on Python Version 2.7 and 3.7
+- Tested on Python and 3.7
 - `argparse >= 1.4.0`
 - requests >= 2.10.0`
 
@@ -413,7 +413,7 @@ Here are the information stored in advisory object.
 To run the tests in the tests folder, the additional required `mock` module should be installed inside the `venv`with the usual:
 
 ```
-pip install mock pytest
+pip3 install mock pytest
 ```
 
 There are unit tests in `tests/` and some sample like system level test (`tests/test_query_client_cvrf.py`) skipped in below sample runs, as it contacting the real API.
