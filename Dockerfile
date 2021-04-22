@@ -5,14 +5,14 @@
 # Author: Omar Santos, os@cisco.com
 
 
-FROM python:3.7.9-alpine as builder
+FROM python:3.7.10-alpine as builder
 
 WORKDIR /build
 COPY . .
 RUN python3 setup.py bdist_wheel
 
 
-FROM python:3.7.9-alpine
+FROM python:3.7.10-alpine
 
 COPY --from=builder /build/dist/*.whl /whl/
 RUN python3 -m pip --no-cache-dir install /whl/*.whl \
