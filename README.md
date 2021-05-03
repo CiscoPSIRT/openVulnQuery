@@ -1,12 +1,12 @@
 # openVulnQuery
 
-A python-based module(s) to query the Cisco PSIRT openVuln API.
+A python-based module(s) to query the Cisco PSIRT openVuln API. openVulnQuery is supported in Python version 3.x.
 
 The Cisco Product Security Incident Response Team (PSIRT) openVuln API is a RESTful API that allows customers to obtain Cisco Security Vulnerability information in different machine-consumable formats. APIs are important for customers because they allow their technical staff and programmers to build tools that help them do their job more effectively (in this case, to keep up with security vulnerability information). More information about the API can be found at: <https://developer.cisco.com/psirt>
 
 ## PIP Installation
 
-You can easily do:
+You can easily install openVulnQuery using [pip](https://pypi.org/project/pip/):
 
 ```
 pip3 install openVulnQuery
@@ -418,14 +418,14 @@ pip3 install mock pytest
 
 There are unit tests in `tests/` and some sample like system level test (`tests/test_query_client_cvrf.py`) skipped in below sample runs, as it contacting the real API.
 
-Sample run (expecting `pytest` has been installed e.g. via `pip install pytest`):
+Sample run (expecting `pytest` has been installed e.g. via `pip3 install pytest`):
 
 ```
 $ cd /www/github.com/CiscoPSIRT/openVulnAPI/openVulnQuery
 
 $ pytest
 =========================================================================================================== test session starts ============================================================================================================
-platform darwin -- Python 2.7.13, pytest-3.1.2, py-1.4.34, pluggy-0.4.0
+platform darwin -- pytest-3.1.2, py-1.4.34, pluggy-0.4.0
 rootdir: /www/github.com/CiscoPSIRT/openVulnAPI/openVulnQuery, inifile:
 plugins: cov-2.5.1
 collected 159 items
@@ -448,7 +448,7 @@ Including coverage info (requires `pip install pytest-cov` which includes `pip i
 ```
 $ pytest --cov=openVulnQuery --cov-report=term-missing --cov-report=html
 =========================================================================================================== test session starts ============================================================================================================
-platform darwin -- Python 2.7.13, pytest-3.1.2, py-1.4.34, pluggy-0.4.0
+platform darwin -- pytest-3.1.2, py-1.4.34, pluggy-0.4.0
 rootdir: /www/github.com/CiscoPSIRT/openVulnAPI/openVulnQuery, inifile:
 plugins: cov-2.5.1
 collected 159 items
