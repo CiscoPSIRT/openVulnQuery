@@ -22,7 +22,7 @@ If you are experiencing any difficulty installing openVulnQuery. Here is the lin
 
 Requirements
 
-- Tested on Python and 3.7
+- Tested on Python 3.7 and 3.9.2
 - `argparse >= 1.4.0`
 - requests >= 2.10.0`
 
