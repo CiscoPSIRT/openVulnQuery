@@ -24,7 +24,7 @@ Requirements
 
 - Tested on Python 3.7 and 3.9.2
 - `argparse >= 1.4.0`
-- requests >= 2.10.0`
+- `requests >= 2.10.0`
 
 ## Config File
 
