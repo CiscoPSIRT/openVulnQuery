@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+	<SoftwareIdentity xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
+			  xmlns:xsi="htttp://www.w3.org/2001/XMLSchema-instance"
+			  name="openVulnQuery"
+			  tagId="Cisco-openVulnQuery-1.31"
+			  version="1.31">
+	  <Entity name="Cisco" role="softwareCreator"/>
+	  <Meta generator="SwiftBOM SBOM Generator v1.3" /> 
+      	<Link  rel="component" href="swid: Python%20Software%20Foundation-argparse-1.4.0"
+	       use="required" />
+      	<Link  rel="component" href="swid: Python%20Software%20Foundation-requests-2.25.1"
+	       use="required" />
+      
+</SoftwareIdentity>

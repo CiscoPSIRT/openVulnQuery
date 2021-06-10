@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<bom serialNumber="urn:uuid:fcc60257-1dbd-580a-3240-26c18a99169c" 
+version = "1" xmlns="http://cyclonedx.org/schema/bom/1.2">
+	<metadata>
+	  <timestamp>2021-06-10T20:34:00Z</timestamp>
+	  <authors>
+	    <author>
+              <name>Omar Santos</name>
+              <email></email>
+	    </author>
+	  </authors>
+	  <component type="device" bom-ref="0fd79fcf-1019-5717-131d-7356d46eb9bc">
+	    <name>openVulnQuery</name>
+	    <version>1.31</version>
+	    <purl>pkg:supplier/Cisco/openVulnQuery@1.31</purl>
+	  </component>
+	  <manufacture>
+	    <name>Cisco</name>
+	    <url></url>
+	    <contact>
+              <name>Cisco</name>
+              <email></email>
+	    </contact>
+	  </manufacture>
+	  <supplier>
+	    <name>
+	      Cisco
+	    </name>
+	  </supplier>
+	</metadata>
+      <components>
+	<component type="library" bom-ref="86ec1b46-5ff0-da68-ceaf-b1b0134aee23">
+	  <publisher>Python Software Foundation</publisher>
+	  <name>argparse</name>
+	  <version>1.4.0</version>
+	  <purl>pkg:supplier/Python%20Software%20Foundation/argparse@1.4.0</purl>
+	</component>
+      	<component type="library" bom-ref="73538ccf-96bd-f6df-9677-86165dcd7c84">
+	  <publisher>Python Software Foundation</publisher>
+	  <name>requests</name>
+	  <version>2.25.1</version>
+	  <purl>pkg:supplier/Python%20Software%20Foundation/requests@2.25.1</purl>
+	</component>
+      </components>
+<dependencies>
+<dependency ref="0fd79fcf-1019-5717-131d-7356d46eb9bc">
+  <dependency ref="86ec1b46-5ff0-da68-ceaf-b1b0134aee23"/>
+  <dependency ref="73538ccf-96bd-f6df-9677-86165dcd7c84"/>
+</dependency>
+</dependencies>
+
+</bom>
