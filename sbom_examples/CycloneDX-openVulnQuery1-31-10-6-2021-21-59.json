@@ -1,0 +1,54 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.2",
+  "serialNumber": "urn:uuid:3240804f-7eba-172b-cad8-2c2dd1e3bcc9",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2021-06-11T00:34:00Z",
+    "authors": [
+      {
+        "name": " Omar Santos"
+      }
+    ],
+    "component": {
+      "type": "device",
+      "bom-ref": "55b70252-2b42-cea8-f67d-0ba91c66f906",
+      "name": "openVulnQuery",
+      "purl": "pkg:supplier/%20Cisco/openVulnQuery@1.31",
+      "supplier": {
+        "name": " Cisco"
+      },
+      "version": "1.31"
+    },
+    "manufacture": {
+      "name": " Cisco"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "4f12be9f-a189-6ecb-fccf-9ac386118f2c",
+      "name": "argparse",
+      "purl": "pkg:supplier/%20Python%20Software%20Foundation/argparse@1.4.0",
+      "publisher": " Python Software Foundation",
+      "version": "1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "ac1deb94-99cc-526c-f609-c49ad8c1fe10",
+      "name": "requests",
+      "purl": "pkg:supplier/%20Python%20Software%20Foundation/requests@2.25.1",
+      "publisher": " Python Software Foundation",
+      "version": "2.25.1"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "55b70252-2b42-cea8-f67d-0ba91c66f906",
+      "dependsOn": [
+        "4f12be9f-a189-6ecb-fccf-9ac386118f2c",
+        "ac1deb94-99cc-526c-f609-c49ad8c1fe10"
+      ]
+    }
+  ]
+}
