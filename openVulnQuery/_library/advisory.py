@@ -18,6 +18,7 @@ ADVISORIES_COMMONS_MAP = {
     'product_names': "productNames",
     'publication_url': "publicationUrl",
     'cvrfUrl': "cvrfUrl",
+    'csafUrl': "csafUrl",
     'sir': "sir",
     'summary': "summary",
 }
@@ -59,8 +60,7 @@ class Advisory(Filterable):
 
     def __init__(self, advisory_id, sir, first_published, last_updated, cves,
                  bug_ids, cvss_base_score, advisory_title, publication_url,
-                 cwe, cvrfUrl,
-                 product_names, summary):
+                 cwe, cvrfUrl, csafUrl, product_names, summary):
         self.advisory_id = advisory_id
         self.sir = sir
         self.first_published = first_published
@@ -72,6 +72,7 @@ class Advisory(Filterable):
         self.publication_url = publication_url
         self.cwe = cwe
         self.cvrfUrl = cvrfUrl
+        self.csafUrl = csafUrl
         self.product_names = product_names
         self.summary = summary
 
