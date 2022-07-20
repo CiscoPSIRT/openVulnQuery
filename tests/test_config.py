@@ -10,7 +10,7 @@ CLIENT_ID_DUMMY = 'BadCodedBadCodedBadCoded'
 CLIENT_SECRET_DUMMY = 'DeadFaceDeadFaceDeadFace'
 CLIENT_SECRET = ''
 REQUEST_TOKEN_URL = "https://cloudsso.cisco.com/as/token.oauth2"
-API_URL = "https://api.cisco.com/security/advisories"
+API_URL = "https://api.cisco.com/security/advisories/v2"
 
 
 class ConfigTest(unittest.TestCase):
