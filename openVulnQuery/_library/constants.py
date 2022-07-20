@@ -6,6 +6,7 @@ API_LABELS = (
     'bug_ids',
     'cves',
     'cvrfUrl',
+    'csafUrl',
     'cvss_base_score',
     'cwe',
     'first_fixed',
