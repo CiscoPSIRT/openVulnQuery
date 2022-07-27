@@ -92,7 +92,13 @@ CLI_API_API_RESOURCE = (
     },
     {
         'dest': 'api_resource',
-
+        'help': 'Retrieve advisories by Cisco Bug id',
+        'metavar': '<BUG-id>',
+        'tokens': ('--bugid',),
+        'type': (lambda x: ('bugid', x)),
+    },
+    {
+        'dest': 'api_resource',
         'help': 'Retrieves latest (number) advisories',
         'metavar': 'number',
         'tokens': ('--latest',),
