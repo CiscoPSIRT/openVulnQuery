@@ -92,6 +92,15 @@ class OpenVulnQueryClient(object):
         advisories = self.get_request(req_path)
         return self.advisory_list(advisories['advisories'], adv_format)
 
+    def get_by_bugid(self, adv_format, bug_id, a_filter=None):
+        """Return the advisory using requested cve id"""
+        req_cfg = {
+            'bug_id': bug_id,
+        }
+        req_path = "bugid/{bug_id}".format(**req_cfg)
+        advisories = self.get_request(req_path)
+        return self.advisory_list(advisories['advisories'], adv_format)
+
     def get_by_advisory(self, adv_format, an_advisory, a_filter=None):
         """Return the advisory using requested advisory id"""
         req_cfg = {
@@ -197,6 +206,7 @@ class OpenVulnQueryClient(object):
         trampoline = {  # key: function; required and [optional] parameters
             'all': self.get_by_all,  # format, all_adv, a_filter
             'cve': self.get_by_cve,  # format, cve, [a_filter]
+            'bugid': self.get_by_bugid,  # format, bugid, [a_filter]
             'advisory': self.get_by_advisory,  # format, an_advisory,[a_filter]
             'severity': self.get_by_severity,  # format, severity, [a_filter]
             'year': self.get_by_year,  # format, year, [a_filter]
