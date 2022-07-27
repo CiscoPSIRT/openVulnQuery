@@ -71,7 +71,7 @@ CLI_API_API_RESOURCE = (
         'const': ('all', 'all'),
         'dest': 'api_resource',
 
-        'help': 'Retrieves all advisiories',
+        'help': 'Retrieves all advisories',
 
       
         'tokens': ('--all',),
@@ -129,7 +129,7 @@ CLI_API_API_RESOURCE = (
     {
         'dest': 'api_resource',
         'help': (
-            'Retrieve advisories affecting user inputted ios_xe version.'
+            'Retrieve advisories affecting user inputted ios_xe version. '
             'Only one version at a time is allowed.'),
         'metavar': 'iosxe_version',
         'tokens': ('--ios_xe',),
@@ -138,7 +138,7 @@ CLI_API_API_RESOURCE = (
     {
         'dest': 'api_resource',
         'help': (
-            'Retrieve advisories affecting user inputted ios version.'
+            'Retrieve advisories affecting user inputted ios version. '
             'Only one version at a time is allowed.'),
         'metavar': 'ios_version',
         'tokens': ('--ios',),
@@ -147,7 +147,7 @@ CLI_API_API_RESOURCE = (
     {
         'dest': 'api_resource',
         'help': (
-            'Retrieve advisories affecting user inputted NX-OS (in standalone mode) version.'
+            'Retrieve advisories affecting user inputted NX-OS (in standalone mode) version. '
             'Only one version at a time is allowed.'),
         'metavar': 'nxos_version',
         'tokens': ('--nxos',),
@@ -156,7 +156,7 @@ CLI_API_API_RESOURCE = (
     {
         'dest': 'api_resource',
         'help': (
-            'Retrieve advisories affecting user inputted NX-OS (in ACI mode) version.'
+            'Retrieve advisories affecting user inputted NX-OS (in ACI mode) version. '
             'Only one version at a time is allowed.'),
         'metavar': 'aci_version',
         'tokens': ('--aci',),
@@ -220,7 +220,7 @@ CLI_API_PARSER_GENERIC = (
     },
     {
         'dest': 'user_agent',
-        'help': 'Announced User-Agent hedar value (towards service)',
+        'help': 'Announced User-Agent headar value (towards service)',
         'metavar': 'string',
         'tokens': ('--user-agent',),
     },
