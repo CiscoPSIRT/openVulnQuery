@@ -155,7 +155,7 @@ class OpenVulnQueryClient(object):
 
     def get_by_ios_xe(self, adv_format, ios_version, a_filter=None):
         """Return advisories by Cisco IOS advisories version"""
-        req_path = "iosxe"
+        req_path = "OSType/iosxe"
         try:
             advisories = self.get_request(
                 req_path,
@@ -167,7 +167,7 @@ class OpenVulnQueryClient(object):
 
     def get_by_ios(self, adv_format, ios_version, a_filter=None):
         """Return advisories by Cisco IOS advisories version"""
-        req_path = "ios"
+        req_path = "OSType/ios"
         try:
             advisories = self.get_request(
                 req_path,
@@ -179,7 +179,7 @@ class OpenVulnQueryClient(object):
 
     def get_by_nxos(self, adv_format, nxos_version, a_filter=None):
         """Return advisories by Cisco NX-OS (standalone mode) advisories version"""
-        req_path = "nxos"
+        req_path = "OSType/nxos"
         try:
             advisories = self.get_request(
                 req_path,
@@ -191,7 +191,7 @@ class OpenVulnQueryClient(object):
 
     def get_by_aci(self, adv_format, aci_version, a_filter=None):
         """Return advisories by Cisco NX-OS (in ACI mode) advisories version"""
-        req_path = "aci"
+        req_path = "OSType/aci"
         try:
             advisories = self.get_request(
                 req_path,
