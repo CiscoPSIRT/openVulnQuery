@@ -200,6 +200,55 @@ class OpenVulnQueryClient(object):
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
+            
+
+    def get_by_asa(self, adv_format, asa_version, a_filter=None):
+        """Return advisories by Cisco ASA advisories version"""
+        req_path = "OSType/asa"
+        try:
+            advisories = self.get_request(
+                req_path,
+                params={'version': asa_version})
+            return self.advisory_list(advisories['advisories'], None)
+        except requests.exceptions.HTTPError as e:
+            raise requests.exceptions.HTTPError(
+                e.response.status_code, e.response.text)
+
+    def get_by_fmc(self, adv_format, fmc_version, a_filter=None):
+        """Return advisories by Cisco FMC advisories version"""
+        req_path = "OSType/fmc"
+        try:
+            advisories = self.get_request(
+                req_path,
+                params={'version': fmc_version})
+            return self.advisory_list(advisories['advisories'], None)
+        except requests.exceptions.HTTPError as e:
+            raise requests.exceptions.HTTPError(
+                e.response.status_code, e.response.text)
+
+    def get_by_ftd(self, adv_format, ftd_version, a_filter=None):
+        """Return advisories by Cisco FTD advisories version"""
+        req_path = "OSType/ftd"
+        try:
+            advisories = self.get_request(
+                req_path,
+                params={'version': ftd_version})
+            return self.advisory_list(advisories['advisories'], None)
+        except requests.exceptions.HTTPError as e:
+            raise requests.exceptions.HTTPError(
+                e.response.status_code, e.response.text)
+
+    def get_by_fxos(self, adv_format, fxos_version, a_filter=None):
+        """Return advisories by Cisco FXOS advisories version"""
+        req_path = "OSType/fxos"
+        try:
+            advisories = self.get_request(
+                req_path,
+                params={'version': fxos_version})
+            return self.advisory_list(advisories['advisories'], None)
+        except requests.exceptions.HTTPError as e:
+            raise requests.exceptions.HTTPError(
+                e.response.status_code, e.response.text)            
 
     def get_by(self, topic, format, aspect, **kwargs):
         """Cartesian product ternary paths biased REST dispatcher."""
@@ -216,7 +265,10 @@ class OpenVulnQueryClient(object):
             'ios': self.get_by_ios,  # 'ios', ios_version, [a_filter]
             'nxos': self.get_by_nxos,  # 'ios', nxos_version, [a_filter]
             'aci': self.get_by_aci,  # 'ios', aci_version, [a_filter]
-
+            'asa': self.get_by_asa,  # 'ios', asa_version, [a_filter]
+            'fmc': self.get_by_fmc,  # 'ios', fmc_version, [a_filter]
+            'ftd': self.get_by_ftd,  # 'ios', ftd_version, [a_filter]
+            'fxos': self.get_by_fxos,  # 'ios', fxos_version, [a_filter]
         }
         if topic not in trampoline:
             raise KeyError(
