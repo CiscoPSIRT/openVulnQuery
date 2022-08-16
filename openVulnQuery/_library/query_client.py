@@ -13,6 +13,7 @@ from . import constants
 from . import rest_api
 
 ADV_TOKENS = constants.ADVISORY_FORMAT_TOKENS
+#NOS_VERSION_TOKENS = constants.NOS_VERSION_FORMAT_TOKENS
 
 TEMPORAL_FILTER_KEYS = ('startDate', 'endDate')
 PUBLISHED_FIRST = 'firstpublished'
@@ -24,7 +25,9 @@ DEBUG_API_PATH = os.getenv('CISCO_OPEN_VULN_API_PATH', None)
 DEBUG_TIME_STAMP_FORMAT = "%Y%m%dT%H%M%S.%f"
 
 def ensure_adv_format_token(adv_format):
+    print(ADV_TOKENS)
     return adv_format if adv_format in ADV_TOKENS else ADV_TOKENS[-1]
+
 
 class Filter(object):
     def __init__(self, path='', params=None):
@@ -250,6 +253,32 @@ class OpenVulnQueryClient(object):
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)            
 
+    def get_by_os(self, adv_format, os_type, a_filter=None):
+        """Return version information regarding the different Network Operating Systems."""
+        req_path = "OS_version/OS_data"
+        try:
+            NOS_Data = self.get_request(
+                req_path,
+                params={'OSType': os_type})
+            #Data is already a list of nost_type objects
+            return NOS_Data
+        except requests.exceptions.HTTPError as e:
+            raise requests.exceptions.HTTPError(
+                e.response.status_code, e.response.text)
+
+    def get_by_platform(self, adv_format, os_type, a_filter=None):
+        """Return platform information regarding the different Network Operating Systems."""
+        req_path = "platforms"
+        try:
+            platforms = self.get_request(
+                req_path,
+                params={'OSType': os_type})
+            #Data is already a list of platformAlias objects
+            return platforms
+        except requests.exceptions.HTTPError as e:
+            raise requests.exceptions.HTTPError(
+                e.response.status_code, e.response.text)
+
     def get_by(self, topic, format, aspect, **kwargs):
         """Cartesian product ternary paths biased REST dispatcher."""
         trampoline = {  # key: function; required and [optional] parameters
@@ -269,6 +298,8 @@ class OpenVulnQueryClient(object):
             'fmc': self.get_by_fmc,  # 'ios', fmc_version, [a_filter]
             'ftd': self.get_by_ftd,  # 'ios', ftd_version, [a_filter]
             'fxos': self.get_by_fxos,  # 'ios', fxos_version, [a_filter]
+            'OS': self.get_by_os,  # format, OS_Type, 'none'
+            'platform': self.get_by_platform,  # format, OS_Type, 'none'
         }
         if topic not in trampoline:
             raise KeyError(
@@ -310,7 +341,6 @@ class OpenVulnQueryClient(object):
         adv_format = ensure_adv_format_token(adv_format)
         return [advisory.advisory_factory(adv, adv_format, self.logger)
                 for adv in advisories]
-
 
 def snapshot_timestamp():
     """Generate timestamp in format DEBUG_TIME_STAMP_FORMAT."""

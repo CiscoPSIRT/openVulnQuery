@@ -40,7 +40,7 @@ def main(string_list=None):
     api_resource_key, api_resource_value = args.api_resource
 
     topic = api_resource_key
-    
+
     if api_resource_key == constants.IOS_ADVISORY_FORMAT_TOKEN:
         adv_format = constants.IOS_ADVISORY_FORMAT_TOKEN
     else:
@@ -55,12 +55,32 @@ def main(string_list=None):
     }
     if args.user_agent:
         client_cfg['user_agent'] = args.user_agent
+
     client = query_client.OpenVulnQueryClient(**client_cfg)
 
-    advisories = client.get_by(topic, adv_format, api_resource_value, **f_cfg)
+    if api_resource_key == 'OS':
+        # Retrieve version information regarding the different Network Operating Systems.
+        # No filtering supported
+        OS_versions = client.get_by(topic, "default", api_resource_value, **f_cfg)
+        output_format, file_path = args.output_format
 
-    output_format, file_path = args.output_format
+        with utils.get_output_filehandle(file_path) as f:
+            utils.output(OS_versions, output_format, f)
 
-    with utils.get_output_filehandle(file_path) as f:
-        utils.output(filter_or_aggregate(advisories, args.fields, args.count),
-                     output_format, f)
+    elif api_resource_key == 'platform':
+        # Retrieve platform alias information regarding the different Network Operating Systems.
+        # No filtering supported
+        platform_aliases = client.get_by(topic, "default", api_resource_value, **f_cfg)
+        output_format, file_path = args.output_format
+
+        with utils.get_output_filehandle(file_path) as f:
+            utils.output(platform_aliases, output_format, f)
+    else:
+        # Retrieve advisories based on parameters provided.
+        advisories = client.get_by(topic, adv_format, api_resource_value, **f_cfg)
+
+        output_format, file_path = args.output_format
+
+        with utils.get_output_filehandle(file_path) as f:
+            utils.output(filter_or_aggregate(advisories, args.fields, args.count),
+                         output_format, f)
