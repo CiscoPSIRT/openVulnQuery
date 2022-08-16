@@ -198,6 +198,24 @@ CLI_API_API_RESOURCE = (
         'tokens': ('--fxos',),
         'type': (lambda x: ('fxos', x)),
     },
+    {
+        'dest': 'api_resource',
+        'help': (
+            'Retrieve version information regarding the different Network Operating Systems. '
+            'Only one Network Operating System at a time is allowed.'),
+        'metavar': 'OS_version',
+        'tokens': ('--OS',),
+        'type': (lambda x: ('OS', x)),
+    },
+    {
+        'dest': 'api_resource',
+        'help': (
+            'Retrieve platform alias information regarding the different Network Operating Systems. '
+            'Only one Network Operating System at a time is allowed.'),
+        'metavar': 'platform',
+        'tokens': ('--platform',),
+        'type': (lambda x: ('platform', x)),
+    },
 )
 
 CLI_API_OUTPUT_FORMAT = (
@@ -341,6 +359,17 @@ def process_command_line(string_list=None):
             parser.error(
                 'Only {} based filter can have additional first_published or'
                 ' last_published filter'.format(constants.ALLOWS_FILTER))
+
+    if args.api_resource[0] in constants.NON_ADVISORY_QUERY:
+        if args.count or args.fields:
+            parser.error(
+                '{} do not support fields or count options'.format(constants.NON_ADVISORY_QUERY))
+        elif args.api_resource[1] not in constants.SUPPORTED_PLATFORMS_VERSION:
+            parser.error(
+                'Only network operating system types for OS type query are: {}'.format(constants.SUPPORTED_PLATFORMS_VERSION))
+        elif args.api_resource[1] not in constants.SUPPORTED_PLATFORMS_ALIAS:
+            parser.error(
+                'Only network operating system types for platform type query are: {}'.format(constants.SUPPORTED_PLATFORMS_ALIAS))
 
     if not args.json_config_path:
         # Try next environment variables are set, then config.py, or fail:
