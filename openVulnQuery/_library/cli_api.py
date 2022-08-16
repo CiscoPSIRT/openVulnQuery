@@ -162,6 +162,42 @@ CLI_API_API_RESOURCE = (
         'tokens': ('--aci',),
         'type': (lambda x: ('aci', x)),
     },
+    {
+        'dest': 'api_resource',
+        'help': (
+            'Retrieve advisories affecting user inputted ASA version. '
+            'Only one version at a time is allowed.'),
+        'metavar': 'asa_version',
+        'tokens': ('--asa',),
+        'type': (lambda x: ('asa', x)),
+    },
+    {
+        'dest': 'api_resource',
+        'help': (
+            'Retrieve advisories affecting user inputted FMC version. '
+            'Only one version at a time is allowed.'),
+        'metavar': 'fmc_version',
+        'tokens': ('--fmc',),
+        'type': (lambda x: ('fmc', x)),
+    },
+    {
+        'dest': 'api_resource',
+        'help': (
+            'Retrieve advisories affecting user inputted FTD version. '
+            'Only one version at a time is allowed.'),
+        'metavar': 'ftd_version',
+        'tokens': ('--ftd',),
+        'type': (lambda x: ('ftd', x)),
+    },
+    {
+        'dest': 'api_resource',
+        'help': (
+            'Retrieve advisories affecting user inputted FXOS version. '
+            'Only one version at a time is allowed.'),
+        'metavar': 'fxos_version',
+        'tokens': ('--fxos',),
+        'type': (lambda x: ('fxos', x)),
+    },
 )
 
 CLI_API_OUTPUT_FORMAT = (
