@@ -32,6 +32,29 @@ ALLOWS_FILTER = (
     'severity',
 )
 
+NON_ADVISORY_QUERY = (
+    'OS',
+    'platform',
+)
+
+SUPPORTED_PLATFORMS_VERSION = (
+    'aci',
+    'asa',
+    'ios',
+    'iosxe',
+    'ftd',
+    'fmc',
+    'fxos',
+    'nxos',
+)
+
+SUPPORTED_PLATFORMS_ALIAS = (
+    'asa',
+    'ftd',
+    'fxos',
+    'nxos',
+)
+
 NA_INDICATOR = 'NA'
 
 JSON_OUTPUT_FORMAT_TOKEN = 'json'
