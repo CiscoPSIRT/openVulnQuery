@@ -109,23 +109,28 @@ Obtain client ID and Secret:
 ```
 --all
         Returns all advisories
-        Examples:
+        Example:
         >> openVulnQuery --all
 
 
 --advisory
         Search by specific advisory id
-        Examples:
+        Example:
         >> openVulnQuery --advisory cisco-sa-20110201-webex
+        
+--bugid
+        Search by specific Cisco Bug id
+        Example:
+        >> openVulnQuery --bugid CSCwb92675
 
 --cve
         Search by specific cve id
-        Examples:
+        Example:
         >> openVulnQuery --cve CVE-2010-3043
 
 --latest
         Search by the last number of advisories published
-        Examples:
+        Example:
         >> openVulnQuery  --latest 10
 
         Note: the latest option is limited to 100 maximum queries
@@ -140,12 +145,12 @@ Obtain client ID and Secret:
 
 --year
         Search by the year (1995 to present)
-        Examples:
+        Example:
         >> openVulnQuery  --year 2016
 
 --product
          Search by the product name
-         Examples:
+         Example:
          >> openVulnQuery  --product Cisco
 
 --ios
@@ -173,6 +178,42 @@ Obtain client ID and Secret:
         Search by Cisco NX-OS (ACI mode) Software version.
         Example:
         >> openVulnQuery --aci 11.0(2j)
+        
+--asa
+        Cisco Software Checker has been integrated with openVulnAPI.
+        Search by Cisco ASA Software version.
+        Example:
+        >> openVulnQuery --asa 9.18.1
+        
+--fmc
+        Cisco Software Checker has been integrated with openVulnAPI.
+        Search by Cisco FMC Software version.
+        Example:
+        >> openVulnQuery --fmc 7.0.1
+        
+--ftd
+        Cisco Software Checker has been integrated with openVulnAPI.
+        Search by Cisco FTD Software version.
+        Example:
+        >> openVulnQuery --ftd 7.0.1
+        
+--fxos
+        Cisco Software Checker has been integrated with openVulnAPI.
+        Search by Cisco FXOS Software version.
+        Example:
+        >> openVulnQuery --fxos 2.6.1.131
+        
+--OS
+        To obtain version information regarding the different Network Operating Systems.
+        Examples:
+        >> openVulnQuery --OS asa
+        >> openVulnQuery --OS ios
+        
+--platform
+        To obtain platform alias information regarding the different Network Operating Systems.
+        Examples:
+        >> openVulnQuery --platform asa
+        >> openVulnQuery --platform nxos  
 ```
 
 **NOTE**: Cisco reserves the right to remove End-of-Support releases from the Cisco Software Checker (subsequently reflected in this API).
@@ -210,6 +251,7 @@ Any field that has no information will return with with the field name and NA
 - summary
 - vuln_title
 - cvrf_url
+- csafUrl
 
 ```
 -f or --fields
