@@ -364,12 +364,15 @@ def process_command_line(string_list=None):
         if args.count or args.fields:
             parser.error(
                 '{} do not support fields or count options'.format(constants.NON_ADVISORY_QUERY))
-        elif args.api_resource[1] not in constants.SUPPORTED_PLATFORMS_VERSION:
-            parser.error(
-                'Only network operating system types for OS type query are: {}'.format(constants.SUPPORTED_PLATFORMS_VERSION))
-        elif args.api_resource[1] not in constants.SUPPORTED_PLATFORMS_ALIAS:
-            parser.error(
-                'Only network operating system types for platform type query are: {}'.format(constants.SUPPORTED_PLATFORMS_ALIAS))
+
+        if args.api_resource[0] == "OS":
+            if args.api_resource[1] not in constants.SUPPORTED_PLATFORMS_VERSION:
+                parser.error(
+                    'Only network operating system types for OS type query are: {}'.format(constants.SUPPORTED_PLATFORMS_VERSION))
+        elif args.api_resource[0] == "platform":
+            if args.api_resource[1] not in constants.SUPPORTED_PLATFORMS_ALIAS:
+                parser.error(
+                    'Only network operating system types for platform type query are: {}'.format(constants.SUPPORTED_PLATFORMS_ALIAS))
 
     if not args.json_config_path:
         # Try next environment variables are set, then config.py, or fail:
