@@ -70,10 +70,7 @@ CLI_API_API_RESOURCE = (
         'action': 'store_const',
         'const': ('all', 'all'),
         'dest': 'api_resource',
-
         'help': 'Retrieves all advisories',
-
-      
         'tokens': ('--all',),
     },
     {
@@ -278,6 +275,16 @@ CLI_API_PARSER_GENERIC = (
         'metavar': 'string',
         'tokens': ('--user-agent',),
     },
+    {
+        'choices': constants.SUPPORTED_PLATFORMS_ALIAS_NAME_ASA + constants.SUPPORTED_PLATFORMS_ALIAS_NAME_FTD +
+                   constants.SUPPORTED_PLATFORMS_ALIAS_NAME_FXOS + constants.SUPPORTED_PLATFORMS_ALIAS_NAME_NXOS,
+        'dest': 'platformAlias',
+        'help': ('Single platform alias.  '
+                 ' Supported only for: %s' % ', '.join(constants.SUPPORTED_PLATFORMS_ALIAS)),
+        'metavar': '',
+        'nargs': '+',
+        'tokens': ('-pa', '--platformAlias'),
+    },
 )
 
 CLI_API_CONFIG = (
@@ -353,12 +360,17 @@ def process_command_line(string_list=None):
 
     args = parser.parse_args(args=string_list)
 
-
     if args.api_resource[0] not in constants.ALLOWS_FILTER:
         if args.first_published or args.last_published:
             parser.error(
                 'Only {} based filter can have additional first_published or'
                 ' last_published filter'.format(constants.ALLOWS_FILTER))
+
+    if args.api_resource[0] not in constants.SUPPORTED_PLATFORMS_ALIAS:
+        if args.platformAlias:
+            parser.error(
+                'Only {} based filter can have additional platformAlias filter'
+                .format(constants.SUPPORTED_PLATFORMS_ALIAS))
 
     if args.api_resource[0] in constants.NON_ADVISORY_QUERY:
         if args.count or args.fields:
