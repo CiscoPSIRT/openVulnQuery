@@ -151,7 +151,7 @@ class AdvisoryTest(unittest.TestCase):
             adv_map[v] = k
         self.assertTrue(advisory.advisory_factory(
                         adv_map,
-                        constants.CVRF_ADVISORY_FORMAT_TOKEN,
+                        constants.DEFAULT_ADVISORY_FORMAT_TOKEN,
                         MockLogger()))
 
     def test_advisory_advisory_factory_oval_with_key_oval_url_and_ips(self):
