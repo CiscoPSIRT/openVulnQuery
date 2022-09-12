@@ -1,6 +1,9 @@
 import unittest
 import requests
 import json
+
+from unittest import mock
+
 from openVulnQuery import query_client
 from openVulnQuery import constants
 from openVulnQuery import config
