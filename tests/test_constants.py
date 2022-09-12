@@ -73,11 +73,8 @@ class ConstantsTest(unittest.TestCase):
 
     def test_constants_unchanged_cvrf_advisory_format_token(self):
         self.assertEqual(
-            constants.CVRF_ADVISORY_FORMAT_TOKEN, CVRF_ADVISORY_FORMAT_TOKEN)
+            constants.DEFAULT_ADVISORY_FORMAT_TOKEN, DEFAULT_ADVISORY_FORMAT_TOKEN)
 
-    def test_constants_unchanged_oval_advisory_format_token(self):
-        self.assertEqual(
-            constants.OVAL_ADVISORY_FORMAT_TOKEN, OVAL_ADVISORY_FORMAT_TOKEN)
 
     def test_constants_unchanged_ios_advisory_format_token(self):
         self.assertEqual(
