@@ -1,5 +1,4 @@
 import unittest
-import mock
 import sys
 import json
 import pytest

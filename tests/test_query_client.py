@@ -1,5 +1,4 @@
 import unittest
-import mock
 import requests
 import json
 from openVulnQuery import query_client

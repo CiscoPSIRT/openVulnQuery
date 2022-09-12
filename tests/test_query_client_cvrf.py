@@ -2,7 +2,6 @@ import json
 import unittest
 import pytest
 
-import mock
 from openVulnQuery import advisory
 from openVulnQuery import config
 from openVulnQuery import query_client

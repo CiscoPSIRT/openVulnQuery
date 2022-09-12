@@ -2,6 +2,7 @@
 
 import os
 import unittest
+import requests
 
 from openVulnQuery import config
 

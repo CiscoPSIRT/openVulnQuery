@@ -1,7 +1,7 @@
 import unittest
-
-import mock
 import requests
+from unittest import mock
+
 from openVulnQuery import authorization
 from openVulnQuery import config
 

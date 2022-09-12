@@ -1,4 +1,6 @@
 import unittest
+from unittest import mock
+import requests
 
 from openVulnQuery import advisory
 from openVulnQuery import config

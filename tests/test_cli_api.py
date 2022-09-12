@@ -2,6 +2,7 @@ import argparse
 import unittest
 import os
 import inspect
+import requests
 
 from openVulnQuery import config
 from openVulnQuery import cli_api
