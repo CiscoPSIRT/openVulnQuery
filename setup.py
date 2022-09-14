@@ -4,11 +4,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='OpenVulnQuery',
-      version='1.32',
+      version='1.33',
       description='A python-based module(s) to query the Cisco PSIRT openVuln API.',
       long_description=long_description,
       long_description_content_type="text/markdown",
-      url='https://github.com/CiscoPSIRT/openVulnAPI/tree/master/openVulnQuery',
+      url='https://github.com/CiscoPSIRT/openVulnQuery',
       author=' Omar Santos',
       author_email='os@cisco.com',
       license='The MIT License (MIT)',
