@@ -7,7 +7,7 @@ from ._compatibility import is_unicode_or_bytes
 
 TAB = u'\t'
 IPS_SIG = constants.IPS_SIGNATURE_LABEL
-
+PLATFORMS_TAG = constants.PLATFORMS_LABEL
 
 def filter_advisories(advisories, fields):
     """Filter the advisories per some criteria ...
@@ -19,11 +19,20 @@ def filter_advisories(advisories, fields):
     is_nested_ips_signature_field = any(
         field in constants.IPS_SIGNATURES for field in fields)
 
+    is_nested_platforms_field = any(
+        field in constants.PLATFORMS for field in fields)
+
     filter_fields = list(fields)
+
     if is_nested_ips_signature_field:
         filter_fields.append(IPS_SIG)
     elif IPS_SIG in fields:  # and not is_nested_ips_signature_field:
         filter_fields.extend(constants.IPS_SIGNATURES)
+
+    if is_nested_platforms_field:
+        filter_fields.append(PLATFORMS_TAG)
+    elif PLATFORMS_TAG in fields:
+        filter_fields.extend(constants.PLATFORMS)
 
     return [adv.filter(*filter_fields) for adv in advisories]
 

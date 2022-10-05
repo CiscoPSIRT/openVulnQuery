@@ -13,11 +13,12 @@ from . import constants
 from . import rest_api
 
 ADV_TOKENS = constants.ADVISORY_FORMAT_TOKENS
-#NOS_VERSION_TOKENS = constants.NOS_VERSION_FORMAT_TOKENS
 
 TEMPORAL_FILTER_KEYS = ('startDate', 'endDate')
 PUBLISHED_FIRST = 'firstpublished'
 PUBLISHED_LAST = 'lastpublished'
+PLATFORMALIAS = 'platformAlias'
+
 TEMPORAL_PUBLICATION_ASPECTS = (PUBLISHED_FIRST, PUBLISHED_LAST)
 
 DEBUG_API_USAGE = os.getenv('CISCO_OPEN_VULN_API_DEBUG', None)
@@ -25,7 +26,6 @@ DEBUG_API_PATH = os.getenv('CISCO_OPEN_VULN_API_PATH', None)
 DEBUG_TIME_STAMP_FORMAT = "%Y%m%dT%H%M%S.%f"
 
 def ensure_adv_format_token(adv_format):
-    print(ADV_TOKENS)
     return adv_format if adv_format in ADV_TOKENS else ADV_TOKENS[-1]
 
 
@@ -40,6 +40,11 @@ class TemporalFilter(object):
         self.path = path  # Better be in TEMPORAL_PUBLICATION_ASPECTS ...
         self.params = dict(zip(TEMPORAL_FILTER_KEYS, args))
 
+class OptionalParameters(object):
+    def __init__(self, parameter_name='', *args):
+        self.parameter_name = parameter_name
+        self.parameter_value = args
+
 
 class FirstPublished(TemporalFilter):
     def __init__(self, *args):
@@ -50,6 +55,10 @@ class LastUpdated(TemporalFilter):
     def __init__(self, *args):
         super(LastUpdated, self).__init__(PUBLISHED_LAST, *args)
 
+
+class PlatformAlias(OptionalParameters):
+    def __init__(self, *args):
+        super(PlatformAlias, self).__init__(PLATFORMALIAS, *args)
 
 class OpenVulnQueryClient(object):
     """Client sends get request for advisory information from OpenVuln API.
@@ -77,7 +86,7 @@ class OpenVulnQueryClient(object):
         self.headers = rest_api.rest_with_auth_headers(
             self.auth_token, user_agent)
 
-    def get_by_all(self, adv_format, all_adv, a_filter):
+    def get_by_all(self, adv_format, all_adv, a_filter=None):
         """Return all the advisories using requested advisory format"""
         req_cfg = {
             'filter': a_filter.path,
@@ -163,7 +172,7 @@ class OpenVulnQueryClient(object):
             advisories = self.get_request(
                 req_path,
                 params={'version': ios_version})
-            return self.advisory_list(advisories['advisories'], None)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
@@ -175,7 +184,7 @@ class OpenVulnQueryClient(object):
             advisories = self.get_request(
                 req_path,
                 params={'version': ios_version})
-            return self.advisory_list(advisories['advisories'], None)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
@@ -184,10 +193,12 @@ class OpenVulnQueryClient(object):
         """Return advisories by Cisco NX-OS (standalone mode) advisories version"""
         req_path = "OSType/nxos"
         try:
-            advisories = self.get_request(
-                req_path,
-                params={'version': nxos_version})
-            return self.advisory_list(advisories['advisories'], None)
+            req_cfg = {
+                'version': nxos_version,
+                'platformAlias': '' if a_filter is None else a_filter.parameter_value,
+            }
+            advisories = self.get_request(req_path, req_cfg)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
@@ -199,7 +210,7 @@ class OpenVulnQueryClient(object):
             advisories = self.get_request(
                 req_path,
                 params={'version': aci_version})
-            return self.advisory_list(advisories['advisories'], None)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
@@ -209,10 +220,12 @@ class OpenVulnQueryClient(object):
         """Return advisories by Cisco ASA advisories version"""
         req_path = "OSType/asa"
         try:
-            advisories = self.get_request(
-                req_path,
-                params={'version': asa_version})
-            return self.advisory_list(advisories['advisories'], None)
+            req_cfg = {
+                'version': asa_version,
+                'platformAlias': '' if a_filter is None else a_filter.parameter_value,
+            }
+            advisories = self.get_request(req_path, req_cfg)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
@@ -224,7 +237,7 @@ class OpenVulnQueryClient(object):
             advisories = self.get_request(
                 req_path,
                 params={'version': fmc_version})
-            return self.advisory_list(advisories['advisories'], None)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
@@ -233,10 +246,12 @@ class OpenVulnQueryClient(object):
         """Return advisories by Cisco FTD advisories version"""
         req_path = "OSType/ftd"
         try:
-            advisories = self.get_request(
-                req_path,
-                params={'version': ftd_version})
-            return self.advisory_list(advisories['advisories'], None)
+            req_cfg = {
+                'version': ftd_version,
+                'platformAlias': '' if a_filter is None else a_filter.parameter_value,
+            }
+            advisories = self.get_request(req_path, req_cfg)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)
@@ -245,10 +260,12 @@ class OpenVulnQueryClient(object):
         """Return advisories by Cisco FXOS advisories version"""
         req_path = "OSType/fxos"
         try:
-            advisories = self.get_request(
-                req_path,
-                params={'version': fxos_version})
-            return self.advisory_list(advisories['advisories'], None)
+            req_cfg = {
+                'version': fxos_version,
+                'platformAlias': '' if a_filter is None else a_filter.parameter_value,
+            }
+            advisories = self.get_request(req_path, req_cfg)
+            return self.advisory_list(advisories['advisories'], adv_format)
         except requests.exceptions.HTTPError as e:
             raise requests.exceptions.HTTPError(
                 e.response.status_code, e.response.text)            
@@ -341,6 +358,7 @@ class OpenVulnQueryClient(object):
         adv_format = ensure_adv_format_token(adv_format)
         return [advisory.advisory_factory(adv, adv_format, self.logger)
                 for adv in advisories]
+
 
 def snapshot_timestamp():
     """Generate timestamp in format DEBUG_TIME_STAMP_FORMAT."""

@@ -16,9 +16,10 @@ def filter_or_aggregate(advisories, fields=None, count=None):
         return utils.filter_advisories(advisories, constants.API_LABELS)
 
 
-def filter_config(resource, first_pub_pair=None, last_pub_pair=None):
+def filter_config(resource, first_pub_pair=None, last_pub_pair=None, platformAlias=None):
     """Provide rule conforming filter config from request of filters and API
     resource(s) requested."""
+
     if resource in constants.ALLOWS_FILTER:
         # Process eventual filter parameters:
         if first_pub_pair:
@@ -27,13 +28,18 @@ def filter_config(resource, first_pub_pair=None, last_pub_pair=None):
         elif last_pub_pair:
             a_filter = query_client.TemporalFilter(
                 query_client.PUBLISHED_LAST, *last_pub_pair)
-        else:  # Default is 'empty' filter
+        else:
             a_filter = query_client.Filter()
+    elif resource in constants.SUPPORTED_PLATFORMS_ALIAS:
+        if platformAlias:
+            a_filter = query_client.OptionalParameters(
+                query_client.PLATFORMALIAS, *platformAlias)
+        else:  # Default is 'empty' filter
+            a_filter = None
     else:
         a_filter = None
 
     return {'a_filter': a_filter}
-
 
 def main(string_list=None):
     args = cli_api.process_command_line(string_list)
@@ -43,11 +49,13 @@ def main(string_list=None):
 
     if api_resource_key == constants.IOS_ADVISORY_FORMAT_TOKEN:
         adv_format = constants.IOS_ADVISORY_FORMAT_TOKEN
+    elif api_resource_key == constants.IOSXE_ADVISORY_FORMAT_TOKEN:
+        adv_format = constants.IOS_ADVISORY_FORMAT_TOKEN
     else:
         adv_format = constants.DEFAULT_ADVISORY_FORMAT_TOKEN
 
     f_cfg = filter_config(
-        api_resource_key, args.first_published, args.last_published)
+        api_resource_key, args.first_published, args.last_published, args.platformAlias)
 
     client_cfg = {
         'client_id': config.CLIENT_ID,
@@ -61,7 +69,7 @@ def main(string_list=None):
     if api_resource_key == 'OS':
         # Retrieve version information regarding the different Network Operating Systems.
         # No filtering supported
-        OS_versions = client.get_by(topic, "default", api_resource_value, **f_cfg)
+        OS_versions = client.get_by(topic, adv_format, api_resource_value, **f_cfg)
         output_format, file_path = args.output_format
 
         with utils.get_output_filehandle(file_path) as f:
@@ -70,13 +78,13 @@ def main(string_list=None):
     elif api_resource_key == 'platform':
         # Retrieve platform alias information regarding the different Network Operating Systems.
         # No filtering supported
-        platform_aliases = client.get_by(topic, "default", api_resource_value, **f_cfg)
+        platform_aliases = client.get_by(topic, adv_format, api_resource_value, **f_cfg)
         output_format, file_path = args.output_format
 
         with utils.get_output_filehandle(file_path) as f:
             utils.output(platform_aliases, output_format, f)
+
     else:
-        # Retrieve advisories based on parameters provided.
         advisories = client.get_by(topic, adv_format, api_resource_value, **f_cfg)
 
         output_format, file_path = args.output_format
