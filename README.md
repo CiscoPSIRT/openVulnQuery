@@ -44,8 +44,8 @@ Obtain client ID and Secret:
 
   ```
    Rate Limits
-   10    Calls per second
-   5,000    Calls per day
+   5        Calls per second
+   30       Calls per minute
   ```
 
 6. Note the value of "Client ID" (a string like e.g. 'abc12abcd13abcdefabcde1a')
