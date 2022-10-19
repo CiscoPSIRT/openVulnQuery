@@ -5,6 +5,7 @@ from ._compatibility import is_unicode_or_bytes
 
 NA = constants.NA_INDICATOR
 IPS_SIG = constants.IPS_SIGNATURE_LABEL
+PLATFORMS_TAG = constants.PLATFORMS_LABEL
 
 ADVISORIES_COMMONS_MAP = {
     'advisory_id': "advisoryId",
@@ -27,12 +28,14 @@ IPS_SIG_MAP = {
     IPS_SIG: 'ipsSignatures',
 }
 
-
 IOS_ADD_ONS_MAP = {
     'first_fixed': 'firstFixed',
     'ios_release': 'iosRelease',
 }
 
+PLATFORMS_MAP = {
+    PLATFORMS_TAG: 'platforms',
+}
 
 class Filterable(object):
     """Filterable mixin class"""
@@ -76,7 +79,6 @@ class Advisory(Filterable):
         self.product_names = product_names
         self.summary = summary
 
-
 class AdvisoryDefault(Advisory):
     """Default object inherits from Advisory"""
 
@@ -86,16 +88,28 @@ class AdvisoryDefault(Advisory):
             self.ips_signatures = [
                 IPSSignature(**kw) if not is_unicode_or_bytes(kw) else NA
                 for kw in kwargs.pop(IPS_SIG)]
+
+        self.platforms = []
+        if 'platforms' in kwargs:
+            self.platforms = [
+                platformsList(**kw) if not is_unicode_or_bytes(kw) else NA
+                for kw in kwargs.pop('platforms')]
+
         super(AdvisoryDefault, self).__init__(*args, **kwargs)
 
 class AdvisoryIOS(Advisory):
     """Advisory Object with additional information on IOS/IOSXE version """
 
     def __init__(self, *args, **kwargs):
+        self.ips_signatures = []
+        if IPS_SIG in kwargs:
+            self.ips_signatures = [
+                IPSSignature(**kw) if not is_unicode_or_bytes(kw) else NA
+                for kw in kwargs.pop(IPS_SIG)]
+
         self.first_fixed = kwargs.pop('first_fixed', None)
         self.ios_release = kwargs.pop('ios_release', None)
         super(AdvisoryIOS, self).__init__(*args, **kwargs)
-
 
 class IPSSignature(Filterable):
     def __init__(self, legacyIpsId, releaseVersion, softwareVersion,
@@ -105,6 +119,12 @@ class IPSSignature(Filterable):
         self.software_version = softwareVersion
         self.legacy_ips_url = legacyIpsUrl
 
+class platformsList(Filterable):
+    def __init__(self, id, name, firstFixes, vulnerabilityState):
+        self.id = id
+        self.name = name
+        self.firstFixes = firstFixes
+        self.vulnerabilityState = vulnerabilityState
 
 def advisory_format_factory_map():
     """Map the advisory format tokens to callable instantiators."""
@@ -118,15 +138,19 @@ def advisory_factory(adv_data, adv_format, logger):
     :param logger: A logger (for now expecting to be ready to log)
     :returns advisory instance according to adv_format
     """
+
     adv_map = {}  # Initial fill from shared common model key map:
     for k, v in ADVISORIES_COMMONS_MAP.items():
         adv_map[k] = adv_data[v]
 
+    for k, v in IPS_SIG_MAP.items():
+        adv_map[k] = adv_data[v]
 
-    if adv_format == constants.DEFAULT_ADVISORY_FORMAT_TOKEN:
-        for k, v in IPS_SIG_MAP.items():
+    for k, v in PLATFORMS_MAP.items():
+        if v in adv_data:
             adv_map[k] = adv_data[v]
-    else:  # IOS advisory format targeted:
+
+    if adv_format == constants.IOS_ADVISORY_FORMAT_TOKEN:
         for k, v in IOS_ADD_ONS_MAP.items():
             if v in adv_data:
                 adv_map[k] = adv_data[v]

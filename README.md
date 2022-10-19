@@ -40,13 +40,9 @@ Obtain client ID and Secret:
   - Under Select APIs choose Cisco PSIRT openVuln API
   - Agree to the terms and service and click Register
 
-5. Take note of the "rate contract" presented like e.g.:
-
-  ```
-   Rate Limits
-   2    Calls per second
-   3    Calls per minute
-  ```
+5. The following are the openVuln API rate limits:
+- 2 calls per second
+- 10 calls per minute
 
 6. Note the value of "Client ID" (a string like e.g. 'abc12abcd13abcdefabcde1a')
 7. Note the value of "Client Secret" (a string like e.g. '1a2abcDEfaBcDefAbcDeFA3b')
