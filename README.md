@@ -249,6 +249,8 @@ Any field that has no information will return with with the field name and NA
 - cvrf_url
 - csafUrl
 
+**NOTE**: [CSAF](https://csaf.io) is a specification for structured machine-readable vulnerability-related advisories and further refine those standards over time. CSAF is the new name and replacement for the Common Vulnerability Reporting Framework (CVRF). Cisco will support CVRF until December 31, 2023. More information at: https://csaf.io 
+
 ```
 -f or --fields
 
