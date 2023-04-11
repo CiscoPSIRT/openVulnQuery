@@ -19,5 +19,9 @@ def get_oauth_token(client_id, client_secret, request_token_url=None):
         params={'client_id': client_id, 'client_secret': client_secret},
         data={'grant_type': 'client_credentials'}
     )
+    # Added check to see if migrated to new API structure.
+    if r.status_code == 400:
+        print("Ensure you have updated your code as per https://raw.githubusercontent.com/api-at-cisco/Images/master/Whats_New_Doc.pdf")
+        exit()
     r.raise_for_status()
     return r.json()['access_token']
