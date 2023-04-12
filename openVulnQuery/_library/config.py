@@ -9,5 +9,9 @@
 CLIENT_ID = ""
 CLIENT_SECRET = ""
 
-REQUEST_TOKEN_URL = "https://cloudsso.cisco.com/as/token.oauth2"
-API_URL = "https://api.cisco.com/security/advisories/v2"
+#The following two URLs have changed.  See https://raw.githubusercontent.com/api-at-cisco/Images/master/Whats_New_Doc.pdf
+#REQUEST_TOKEN_URL = "https://cloudsso.cisco.com/as/token.oauth2"
+#API_URL = "https://api.cisco.com/security/advisories/v2"
+
+REQUEST_TOKEN_URL = "https://id.cisco.com/oauth2/default/v1/token"
+API_URL = "https://apix.cisco.com/security/advisories/v2"

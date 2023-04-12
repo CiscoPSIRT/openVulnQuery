@@ -35,15 +35,14 @@ Obtain client ID and Secret:
 3. Select My Applications Tab
 4. Register a New Application by:
 
-  - Entering Application Name
-  - Under OAuth2.0 Credentials check Client Credentials
+  - Enter an application name
+  - Enter a description of your application.
+  - Application Type field is Service.
+  - Grant Type is Client Credentials.
   - Under Select APIs choose Cisco PSIRT openVuln API
   - Agree to the terms and service and click Register
 
-5. The following are the openVuln API rate limits:
-- 2 calls per second
-- 10 calls per minute
-
+5. The openVuln API rate limits are shown in the https://apiconsole.cisco.com/apps/mykeys
 6. Note the value of "Client ID" (a string like e.g. 'abc12abcd13abcdefabcde1a')
 7. Note the value of "Client Secret" (a string like e.g. '1a2abcDEfaBcDefAbcDeFA3b')
 8. Provide the credentials to the application at runtime via two preferred alternativev ways:
