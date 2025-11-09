@@ -17,7 +17,9 @@ def get_oauth_token(client_id, client_secret, request_token_url=None):
     r = requests.post(
         request_token_url if request_token_url else config.REQUEST_TOKEN_URL,
         params={'client_id': client_id, 'client_secret': client_secret},
-        data={'grant_type': 'client_credentials'}
+        data={'grant_type': 'client_credentials'},
+        verify=True,  # Explicitly verify SSL certificates
+        timeout=30  # Add timeout to prevent hanging
     )
     # Added check to see if migrated to new API structure.
     if r.status_code == 400:
