@@ -339,6 +339,8 @@ class OpenVulnQueryClient(object):
             'url': req_url,
             'headers': self.headers,
             'params': params,
+            'verify': True,  # Explicitly verify SSL certificates
+            'timeout': 30  # Add timeout to prevent hanging
         }
         request_id = request_snapshot(request_data)
         r = requests.get(**request_data)
