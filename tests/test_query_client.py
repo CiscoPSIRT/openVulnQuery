@@ -2,6 +2,8 @@ import unittest
 import mock
 import requests
 import json
+import os
+import tempfile
 from openVulnQuery import query_client
 from openVulnQuery import constants
 from openVulnQuery import config
@@ -364,3 +366,29 @@ class QueryClientTest(unittest.TestCase):
     #         query_client.get_oauth_token(
     #             CLIENT_ID, CLIENT_SECRET, NOT_FOUND_TOK_URL)
     #     self.assertEqual(str(e.exception), TOK_HTTP_ERROR_MSG)
+
+
+class SnapshotTest(unittest.TestCase):
+
+    def test_debug_snapshots_are_written_as_utf8_json(self):
+        request_data = {'query': '测试'}
+        response_data = {'result': '成功'}
+
+        with tempfile.TemporaryDirectory() as snapshot_dir:
+            with mock.patch.object(query_client, 'DEBUG_API_USAGE', True), \
+                    mock.patch.object(query_client, 'DEBUG_API_PATH',
+                                      snapshot_dir):
+                request_id = query_client.request_snapshot(request_data)
+                query_client.response_snapshots(response_data, request_id)
+
+            snapshot_files = sorted(os.listdir(snapshot_dir))
+            self.assertEqual(len(snapshot_files), 3)
+
+            decoded_snapshots = []
+            for snapshot_file in snapshot_files:
+                with open(os.path.join(snapshot_dir, snapshot_file),
+                          encoding='utf-8') as file_handle:
+                    decoded_snapshots.append(json.load(file_handle))
+
+            self.assertIn(request_data, decoded_snapshots)
+            self.assertEqual(decoded_snapshots.count(response_data), 2)
