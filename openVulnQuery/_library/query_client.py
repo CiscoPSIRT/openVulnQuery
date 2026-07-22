@@ -395,8 +395,8 @@ def request_snapshot(data):
     if DEBUG_API_PATH:
         file_path = os.path.join(DEBUG_API_PATH, file_path)
     try:
-        with open(file_path, 'w') as f:
-            json.dump(data, f, encoding='utf-8')
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f)
     except (OSError, ValueError):
         pass  # Best effort snapshots ;-)
 
@@ -419,8 +419,8 @@ def response_snapshots(data, request_id):
     if DEBUG_API_PATH:
         file_path = os.path.join(DEBUG_API_PATH, file_path)
     try:
-        with open(file_path, 'w') as f:
-            json.dump(data, f, encoding='utf-8')
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f)
     except (OSError, ValueError):
         pass  # Best effort snapshots ;-)
 
@@ -428,7 +428,7 @@ def response_snapshots(data, request_id):
     if DEBUG_API_PATH:
         file_path = os.path.join(DEBUG_API_PATH, file_path)
     try:
-        with open(file_path, 'w') as f:
-            json.dump(data, f, indent=4, encoding='utf-8')
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
     except (OSError, ValueError):
         pass  # ditto (cf. above)
